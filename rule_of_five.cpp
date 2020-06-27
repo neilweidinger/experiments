@@ -73,7 +73,7 @@ class MyClass {
 
         // Relies on C++14 deduced return types (notice there's no -> in the function declarator)
         template <typename T, int N>
-        auto pow(T const& v)
+        constexpr auto pow(T const& v)
         {
             static_assert(std::is_integral<T>::value || std::is_floating_point<T>::value,
                           "Base of power must be integral or floating point type");
@@ -94,7 +94,7 @@ class MyClass {
         // Base can ONLY be an integral type, floating point types as non-type template parameters not supported (should be introduced in C++20)
         // Also relies on C++14 deduced return types
         template <auto base, int exponent>
-        auto pow()
+        constexpr auto pow()
         {
             using base_type = decltype(base);
 
@@ -125,7 +125,9 @@ auto doSomething(MyClass c) -> std::uint32_t
 {
     std::cout << "Called doSomething\n";
 
-    return c.pow<2u, 31>();  // u is integer literal suffix
+    // u is integer literal suffix
+    // std::integral_constant to force evaluation of power at compile time
+    return std::integral_constant<std::uint32_t, c.pow<2u, 31>()>::value;
 }
 
 auto main(int argc, char* argv[]) -> int
