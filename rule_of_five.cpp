@@ -98,8 +98,8 @@ class MyClass {
         {
             using base_type = decltype(base);
 
-            static_assert(std::is_integral<base_type>::value, "Base of power must be integral or floating point type");
-            static_assert(exponent >= 0, "exponent must not be negative");
+            static_assert(std::is_integral<base_type>::value, "Base of power must be integral");
+            static_assert(exponent >= 0, "Exponent must not be negative");
 
             auto product = base_type{1};
 
