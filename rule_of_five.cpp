@@ -132,58 +132,58 @@ auto doSomething(MyClass c) -> std::uint32_t
 
 auto main(int argc, char* argv[]) -> int
 {
-    std::cout << "\n **************************** \n";
-    std::cout << "DEMO: Pass rvalue (std::move'd object) as argument\n\n";
-
     {
+        std::cout << "\n **************************** \n";
+        std::cout << "DEMO: Pass rvalue (std::move'd object) as argument\n\n";
+
         MyClass object{};
         std::cout << doSomething(std::move(object)) << "\n";
     }
 
-    std::cout << "\n **************************** \n";
-    std::cout << "DEMO: Pass lvalue as argument\n\n";
-
     {
+        std::cout << "\n **************************** \n";
+        std::cout << "DEMO: Pass lvalue as argument\n\n";
+
         MyClass object{};
         std::cout << doSomething(object) << "\n";
     }
 
-    std::cout << "\n **************************** \n";
-    std::cout << "DEMO: Pass rvalue (object construction) as argument\n\n";
-
     {
+        std::cout << "\n **************************** \n";
+        std::cout << "DEMO: Pass rvalue (object construction) as argument\n\n";
+
         std::cout << doSomething(MyClass()) << "\n";
     }
 
-    std::cout << "\n **************************** \n";
-    std::cout << "DEMO: Copy constructor\n\n";
-
     {
+        std::cout << "\n **************************** \n";
+        std::cout << "DEMO: Copy constructor\n\n";
+
         MyClass object1{};
         MyClass object2{object1};
     }
 
-    std::cout << "\n **************************** \n";
-    std::cout << "DEMO: Copy assignment\n\n";
-
     {
+        std::cout << "\n **************************** \n";
+        std::cout << "DEMO: Copy assignment\n\n";
+
         MyClass object1{};
         MyClass object2{"abcd"};  // purposely create object2 with cstring of different length to object1 so that original object2 cstring gets deleted
         object2 = object1;
     }
 
-    std::cout << "\n **************************** \n";
-    std::cout << "DEMO: Move constructor\n\n";
-
     {
+        std::cout << "\n **************************** \n";
+        std::cout << "DEMO: Move constructor\n\n";
+
         MyClass object1{};
         MyClass object2{std::move(object1)};
     }
 
-    std::cout << "\n **************************** \n";
-    std::cout << "DEMO: Move assignment\n\n";
-
     {
+        std::cout << "\n **************************** \n";
+        std::cout << "DEMO: Move assignment\n\n";
+
         MyClass object1{};
         MyClass object2{};
         object2 = std::move(object1);
