@@ -1,10 +1,12 @@
 -- Implementations of common functions using folds
 
+import Data.List
+
 max' :: (Ord a) => [a] -> a
 max' = foldr1 (\x acc -> if x > acc then x else acc) 
 
 reverse' :: [a] -> [a]
-reverse' = foldl (flip (:)) []
+reverse' = foldl' (flip (:)) []
 
 elem' :: (Eq a) => a -> [a] -> Bool
 elem' item = foldr (\x acc -> acc || x == item) False
@@ -20,4 +22,4 @@ mapFoldr :: (a -> b) -> [a] -> [b]
 mapFoldr f = foldr ((:) . f) []
 
 mapFoldl :: (a -> b) -> [a] -> [b]
-mapFoldl f = foldl (\acc x -> acc ++ [f x]) []
+mapFoldl f = foldl' (\acc x -> acc ++ [f x]) []
