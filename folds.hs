@@ -1,3 +1,5 @@
+-- Implementations of common functions using folds
+
 max' :: (Ord a) => [a] -> a
 max' = foldr1 (\x acc -> if x > acc then x else acc) 
 
