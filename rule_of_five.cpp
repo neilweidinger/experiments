@@ -37,9 +37,9 @@ class MyClass {
             }
         }
 
-        MyClass& operator=(MyClass const& other)
+        auto operator=(MyClass const& other) -> MyClass&
         {
-            std::cout << this << " Called copy assignment\n";
+            std::cout << this << " Called copy assignment operator\n";
 
             std::size_t n = std::strlen(other.cstring) + 1;
 
@@ -61,9 +61,9 @@ class MyClass {
             std::cout << this << " Called move constructor\n";
         }
 
-        MyClass& operator=(MyClass&& other) noexcept
+        auto operator=(MyClass&& other) noexcept -> MyClass&
         {
-            std::cout << this << " Called move assignment\n";
+            std::cout << this << " Called move assignment operator\n";
 
             delete[] cstring;
             cstring = std::exchange(other.cstring, nullptr);
