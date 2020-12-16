@@ -40,6 +40,7 @@ bool compareRomanNumerals(const std::string& a, const std::string& b) {
 auto main() -> int {
     std::cout << romanNumeralValue("IV") << "\n";
     std::cout << romanNumeralValue("IX") << "\n";
+    std::cout << romanNumeralValue("LXXXIX") << "\n";
 
     return 0;
 }
