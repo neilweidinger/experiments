@@ -10,8 +10,7 @@ fn main() -> Result<()> {
         bail!("Usage: cp source_file target_file");
     }
 
-    let source_name = &args[1];
-    let dest_name = &args[2];
+    let (source_name, dest_name) = (&args[1], &args[2]);
 
     let source = fcntl::open(source_name.as_str(), OFlag::O_RDONLY, Mode::empty())
         .with_context(|| format!("Failed to open {}", source_name))?;

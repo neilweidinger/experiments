@@ -26,9 +26,8 @@ auto main(int argc, char* argv[]) -> int {
         return errno;
     }
 
-    auto buf = std::array<std::byte, 4096> {};
-
     while (true) {
+        static auto buf = std::array<std::byte, 4096> {};
         ssize_t bytes_read = read(source, buf.data(), buf.max_size());
 
         if (bytes_read == -1) {
