@@ -133,7 +133,7 @@ auto doSomething(MyClass c) -> std::uint32_t
 auto main(int argc, char* argv[]) -> int
 {
     {
-        std::cout << "\n **************************** \n";
+        std::cout << "**************************** \n";
         std::cout << "DEMO: Pass rvalue (std::move'd object) as argument\n\n";
 
         MyClass object{};
