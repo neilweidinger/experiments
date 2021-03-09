@@ -1,7 +1,6 @@
 use num_derive::FromPrimitive;
 use num_traits::FromPrimitive;
-use rand::distributions::{Distribution, Uniform};
-use std::collections::HashSet;
+use rand::Rng;
 use std::fmt;
 use std::io::stdin;
 use variant_count::VariantCount;
@@ -41,25 +40,55 @@ impl fmt::Display for Notes {
     }
 }
 
+impl Default for Notes {
+    fn default() -> Self {
+        Notes::A
+    }
+}
+
+fn generate_note_permutation() -> [Notes; Notes::VARIANT_COUNT] {
+    let mut perm = generate_ascending_array::<{ Notes::VARIANT_COUNT }>();
+    shuffle(&mut perm);
+
+    let mut notes_perm: [Notes; Notes::VARIANT_COUNT] = Default::default();
+
+    for (i, val) in perm.iter().enumerate() {
+        notes_perm[i] = Notes::from_usize(*val).unwrap();
+    }
+
+    notes_perm
+}
+
+const fn generate_ascending_array<const N: usize>() -> [usize; N] {
+    let mut a = [0; N];
+    let mut i = 0;
+
+    while i < N {
+        a[i] = i;
+        i += 1;
+    }
+
+    a
+}
+
+fn shuffle<T, const N: usize>(arr: &mut [T; N]) {
+    let mut rng = rand::thread_rng();
+
+    for i in (1..N).rev() {
+        let j = rng.gen_range(0..i);
+        arr.swap(i, j);
+    }
+}
+
 fn main() {
-    let rng = rand::thread_rng();
-    let dist = Uniform::new(0, Notes::VARIANT_COUNT);
-    let mut get_note = dist.sample_iter(rng);
+    let perm = generate_note_permutation();
 
-    let mut seen_notes = HashSet::new();
+    for note in perm.iter() {
+        println!("{}", note);
 
-    while seen_notes.len() < Notes::VARIANT_COUNT {
-        let num = get_note.next().unwrap();
-        let note = Notes::from_usize(num).unwrap();
-
-        if !seen_notes.contains(&note) {
-            println!("{}", note);
-            seen_notes.insert(note);
-
-            let mut buffer = String::new();
-            stdin().read_line(&mut buffer).unwrap();
-            println!("\n\n");
-        }
+        let mut buffer = String::new();
+        stdin().read_line(&mut buffer).unwrap();
+        println!("\n\n");
     }
 
     println!("Done!")
