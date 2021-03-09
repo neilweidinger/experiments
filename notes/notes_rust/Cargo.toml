@@ -1,0 +1,13 @@
+[package]
+name = "notes"
+version = "0.1.0"
+authors = ["Neil Weidinger <neilweidingern@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rand = "0.8.3"
+num-traits = "0.2"
+num-derive = "0.3"
+variant_count = "1.0"

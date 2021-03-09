@@ -30,7 +30,7 @@ C h() {
 C z() {
     std::cout << "Called z()\n";
     auto a = C();
-    return a; // no need to use std::move here, as returning local variable will trigger RVO (Item 25 page 174 Effective Modern C++)
+    return a; // no need to use std::move here, as returning local variable will trigger NRVO (Item 25 page 174 Effective Modern C++)
 }
 
 int main() {
