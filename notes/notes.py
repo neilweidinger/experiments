@@ -17,17 +17,13 @@ notes = {
 }
 
 def main():
-    seen_notes = set()
+    perm = random.sample(range(0, len(notes)), len(notes))
 
-    while len(seen_notes) < len(notes):
-        note = notes[random.randrange(0, len(notes))]
+    for i in perm:
+        print(f'{notes[i]}')
 
-        if note not in seen_notes:
-            print(f'{note}')
-            seen_notes.add(note)
-
-            sys.stdin.readline()
-            print('\n\n')
+        sys.stdin.readline()
+        print('\n\n')
 
     print('Done!')
 

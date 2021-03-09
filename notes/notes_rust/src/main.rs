@@ -71,16 +71,15 @@ const fn generate_ascending_array<const N: usize>() -> [usize; N] {
     a
 }
 
-fn shuffle<T, const N: usize>(arr: &mut [T; N]) {
+fn shuffle<T>(arr: &mut [T]) {
     let mut rng = rand::thread_rng();
 
-    for i in (1..N).rev() {
-        let j = rng.gen_range(0..i);
-        arr.swap(i, j);
+    for i in (1..arr.len()).rev() {
+        arr.swap(i, rng.gen_range(0..i));
     }
 }
 
-fn main() {
+fn over_engineered_version() {
     let perm = generate_note_permutation();
 
     for note in perm.iter() {
@@ -92,4 +91,25 @@ fn main() {
     }
 
     println!("Done!")
+}
+
+#[allow(dead_code)]
+fn simple_version() {
+    let mut perm: Vec<_> = (0_usize..Notes::VARIANT_COUNT).collect();
+    shuffle(&mut perm);
+
+    for i in perm {
+        println!("{}", Notes::from_usize(i).unwrap());
+
+        let mut buffer = String::new();
+        stdin().read_line(&mut buffer).unwrap();
+        println!("\n\n");
+    }
+
+    println!("Done!")
+}
+
+fn main() {
+    over_engineered_version();
+    // simple_version();
 }
