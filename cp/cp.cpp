@@ -21,7 +21,7 @@ auto main(int argc, char* argv[]) -> int {
     }
 
     auto dest = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0644);
-    if (source == -1) {
+    if (dest == -1) {
         std::cerr << "Error opening dest file: " << errno << "\n";
         return errno;
     }
@@ -39,18 +39,18 @@ auto main(int argc, char* argv[]) -> int {
             break;
         }
 
-        if (auto ret = write(dest, buf.data(), bytes_read); ret == -1) {
+        if (write(dest, buf.data(), bytes_read) == -1) {
             std::cerr << "Error writing to dest: " << errno << "\n";
             return errno;
         }
     }
 
-    if (auto ret = close(source); ret == -1) {
+    if (close(source) == -1) {
         std::cerr << "Error closing source file: " << errno << "\n";
         return errno;
     }
 
-    if (auto ret = close(dest); ret == -1) {
+    if (close(dest) == -1) {
         std::cerr << "Error closing dest file: " << errno << "\n";
         return errno;
     }
