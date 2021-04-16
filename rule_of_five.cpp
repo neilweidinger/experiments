@@ -3,6 +3,9 @@
 #include <utility>
 #include <cstring>
 
+// Extremely useful CppCon talk on move semantics: https://youtu.be/St0MNEU5b0o
+// Slides: https://github.com/CppCon/CppCon2019/blob/master/Presentations/back_to_basics_move_semantics_part_1/back_to_basics_move_semantics_part_1__klaus_iglberger__cppcon_2019.pdf
+// There's also a part 2 talk.
 class MyClass {
     public:
         explicit MyClass(char const* s = "abc")
