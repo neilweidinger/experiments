@@ -71,13 +71,13 @@ class MyClass {
             return *this;
         }
 
-        // Relies on C++14 deduced return types (notice there's no -> in the function declarator)
-        template <typename T, int N>
+        // Uses C++14 deduced return types (notice there's no -> in the function declarator),
+        // can of course just return -> T
+        template <typename T, uint32_t N>
         constexpr auto pow(T const& v)
         {
             static_assert(std::is_integral<T>::value || std::is_floating_point<T>::value,
                           "Base of power must be integral or floating point type");
-            static_assert(N >= 0, "N must not be negative");
 
             auto product = T{1};
 
@@ -89,19 +89,17 @@ class MyClass {
         }
 
         // Only works in C++17 and above
-        // This version of pow() is nicer than the one above because you can just call pow<base, exponent>()
-        // Relies on non-type template parameters, and C++17 allowing placeholder types (i.e. auto) as non-type template parameters
+        // This version of pow() differs from the one above because you can just call pow<base, exponent>()
+        // Uses non-type template parameters, and C++17 allowing placeholder types (i.e. auto) as non-type template parameters
         // Base can ONLY be an integral type, floating point types as non-type template parameters not supported (should be introduced in C++20)
-        // Also relies on C++14 deduced return types
-        template <auto base, int exponent>
+        // Also uses C++14 deduced return types, can also just return -> decltype(base)
+        template <auto base, uint32_t exponent>
         constexpr auto pow()
         {
-            using base_type = decltype(base);
+            using Base_type = decltype(base);
+            static_assert(std::is_integral<Base_type>::value, "Base of power must be integral");
 
-            static_assert(std::is_integral<base_type>::value, "Base of power must be integral");
-            static_assert(exponent >= 0, "Exponent must not be negative");
-
-            auto product = base_type{1};
+            auto product = Base_type{1};
 
             for (int i = 0; i < exponent; i++) {
                 product *= base;
@@ -113,7 +111,6 @@ class MyClass {
         void print_cstring()
         {
             std::cout << "Called print_cstring\n";
-
             std::cout << "cstring = " << this->cstring << "\n";
         }
 
