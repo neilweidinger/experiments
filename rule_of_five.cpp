@@ -165,6 +165,14 @@ auto main(int argc, char* argv[]) -> int
 
     {
         std::cout << "\n **************************** \n";
+        std::cout << "DEMO: Copy constructor 2\n\n";
+
+        MyClass object1{"test"};
+        MyClass object2 = object1;
+    }
+
+    {
+        std::cout << "\n **************************** \n";
         std::cout << "DEMO: Copy assignment\n\n";
 
         MyClass object1{};
