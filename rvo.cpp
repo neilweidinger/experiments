@@ -6,6 +6,10 @@ struct C {
     C& operator=(C const& rhs) { std::cout << "Copy assignment operator called\n"; return *this; }
     C(C&& other) noexcept { std::cout << "Move constructor called\n"; }
     C& operator=(C&& other) noexcept { std::cout << "Move assignment operator called\n"; return *this; }
+
+    void do_something() {
+        std::cout << "doing something\n";
+    }
 };
 
 C f() {
@@ -30,18 +34,33 @@ C h() {
 C z() {
     std::cout << "Called z()\n";
     auto a = C();
-    return a; // no need to use std::move here, as returning local variable will trigger NRVO (Item 25 page 174 Effective Modern C++)
+    return a; // no need to use std::move here, as returning local variable will (hopefully) trigger
+              // NRVO (Item 25 page 174 Effective Modern C++)
 }
 
+// can disable NVRO using -fno-elide-constructors
 int main() {
-    C obj1 = f();
-    std::cout << "\n";
+    {
+        C obj = f();
+        obj.do_something();
+        std::cout << "\n";
+    }
 
-    C obj2 = g();
-    std::cout << "\n";
+    {
+        C obj = g();
+        obj.do_something();
+        std::cout << "\n";
+    }
 
-    C obj3 = h();
-    std::cout << "\n";
+    {
+        C obj = h();
+        obj.do_something();
+        std::cout << "\n";
+    }
 
-    C obj4 = z();
+    {
+        C obj = z();
+        obj.do_something();
+        std::cout << "\n";
+    }
 }
